@@ -1,0 +1,14 @@
+#!/bin/bash
+#PBS -S /bin/bash
+#PBS -N bustamante_run_beacon_50
+#PBS -o bustamante_output_02.txt
+#PBS -e bustamante_error_02.txt
+#PBS -M azizmma@cs.umanitoba.com
+#PBS -l walltime=96:00:00,nodes=2:ppn=4,mem=40gb
+cd /import/helium-share/csgrad/azizmma/bustamante/analysis/2016_12_23
+echo "Current working directory is `pwd`"
+echo "Running on hostname `hostname`"
+echo "Starting run at: `date`"
+
+make allresultsRand50.dump
+echo "Stopped run at: `date`"
