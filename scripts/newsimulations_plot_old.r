@@ -5,7 +5,7 @@ library("ggplot2")
 library("scales") 
 library("grid") 
 
-infile<-"E:\\Privacy Code Works\\beacon_distribute\\beacon_distribute\\allresults_2000.dump"
+infile<-"E:\\Privacy Code Works\\beacon_distribute\\beacon_distribute\\allresults.dump"
 df=read.table(infile,header=T)
 
 snpvec=c(10^(1:6 ),3e6)
@@ -64,11 +64,11 @@ png("E:\\Privacy Code Works\\beacon_distribute\\beacon_distribute\\phi_effect.pn
 print(enhance(p))
 dev.off()
 
-p<-ggplot(combined[combined$FPR==0.05,],aes(x=Nsnps,y=Power,linetype=Type,colour=as.factor(Phi)))+geom_line(lwd=1)
+p<-ggplot(fixdeltansnps[fixdeltansnps$FPR==0.05 & fixdeltansnps$Phi<1,],aes(x=Nsnps,y=Power,linetype=Type,colour=as.factor(Phi)))+geom_line(lwd=1.5)
 #p<-p+ scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),labels = trans_format("log10", math_format(10^.x)) ) 
-p<-p+ scale_x_log10(breaks=c(1000,2000,5000,10000,20000,40000),labels=c("1000","2000","5000","10000","20000","40000","50000"))
+p<-p+ scale_x_log10(breaks=c(1000,2000,5000,10000,20000,40000,50000),labels=c("1000","2000","5000","10000","20000","40000","50000"))
 p<-p+scale_colour_manual(values=cbbPalette,name="Relatedness")+xlab("Number of SNPs")
-png("E:\\Privacy Code Works\\beacon_distribute\\beacon_distribute\\phi_effect_power.png",width=2800,height=1800,res = 300)
+png("E:\\Privacy Code Works\\beacon_distribute\\beacon_distribute\\phi_effect_power.png",width = 600, height = 480)
 print(enhance(p))
 dev.off()
 
